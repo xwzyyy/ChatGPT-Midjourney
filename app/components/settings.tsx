@@ -374,7 +374,7 @@ export function Settings() {
               const loginFormData = new FormData();
               loginFormData.append('username','111')
               loginFormData.append('password','222')
-              const response = await fetch('http://45.143.235.82:8888/passport/member/userLogin', {
+              const response = await fetch('https://chat.aiforhuman.net/Api/passport/member/userLogin', {
                   method: 'POST',
                   body: loginFormData,
               });
@@ -383,7 +383,7 @@ export function Settings() {
               accessStore.updateAccessToken(data?.result?.accessToken)
           }
           // 发送请求到后端API（这里需要替换成你的API端点）
-          const response = await fetch('http://45.143.235.82:8888/common/upload/file', {
+          const response = await fetch('https://chat.aiforhuman.net/Api/common/upload/file', {
               method: 'POST',
               headers:{
                 accessToken: accessStore.accessToken
