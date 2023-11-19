@@ -188,6 +188,10 @@ const en: LocaleType = {
       Title: "Font Size",
       SubTitle: "Adjust font size of chat content",
     },
+    backgroundImage: {
+      Title: "Background Image",
+      SubTitle: "support format: JPEG, PNG",
+    },
     InjectSystemPrompts: {
       Title: "Inject System Prompts",
       SubTitle: "Inject a global system prompt for every request",
