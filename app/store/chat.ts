@@ -453,7 +453,7 @@ export const useChatStore = create<ChatStore>()(
                     content.toLowerCase().startsWith("/mj") ||
                     content.toLowerCase().startsWith("/MJ")
                 ) {
-                    botMessage.model = "midjourney";
+                    // botMessage.model = "midjourney";
                     const startFn = async () => {
                         const prompt = content.substring(3).trim();
                         let action: string = "IMAGINE";
@@ -552,7 +552,55 @@ export const useChatStore = create<ChatStore>()(
                     get().onNewMessage(botMessage);
                     set(() => ({}));
                     extAttr?.setAutoScroll(true);
-                } else {
+                }else if(botMessage.model == "dall-e-3"){
+                    const prompt = content; // Replace with your actual prompt
+                    const n = 1; // The number of images to generate
+                    const size = "1024x1024"; // The size of the images
+
+                    fetch("https://api.openai.com/v1/images/generations", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer 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` // Use environment variable or secure storage for API key
+                        },
+                        body: JSON.stringify({
+                            model: "dall-e-3",
+                            prompt: prompt,
+                            n: n,
+                            size: size
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data && data.data && data.data.length > 0) {
+                                const imageUrl = data.data[0].url;
+                                botMessage.content += `\nImage URL: ${imageUrl}`;
+                                botMessage.content += `\n![Generated Image](${imageUrl})`; // Markdown 格式
+                                // 如果您的平台支持 HTML，您可以直接使用 HTML img 标签
+                                botMessage.content += `\n<img src="${imageUrl}" alt="Generated Image" />`; // HTML 格式
+                                // 保存图片 URL 到对话历史记录，如果有必要
+                                // Save the image URL to the conversation history here
+                                // ...
+                                get().onNewMessage(botMessage);
+                                botMessage.streaming = false;
+                                ChatControllerPool.remove(session.id, botMessage.id);
+
+                            } else {
+                                throw new Error('No image data returned from API.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('DALL-E 3 API Error:', error);
+                            botMessage.content += `\n\nError: ${error.message}`;
+                            botMessage.isError = true;
+                            get().updateCurrentSession((session) => {
+                                session.messages = session.messages.concat();
+                            });
+                            // Handle any additional error logging or user feedback
+                        });
+
+                }
+                else {
                     // make request
                     api.llm.chat({
                         messages: sendMessages,
