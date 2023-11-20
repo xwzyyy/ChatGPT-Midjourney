@@ -7,7 +7,7 @@
   .mask-page-body {
     padding: 20px;
     overflow-y: auto;
-
+    backdrop-filter: blur(10px);
     .mask-filter {
       width: 100%;
       max-width: 100%;

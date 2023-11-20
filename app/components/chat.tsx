@@ -1279,38 +1279,38 @@ function _Chat() {
                                         />
                                     </div>
                                     {!isUser &&
-                                        // message.model == "midjourney" &&
-                                        message.attr?.finished &&
-                                        message.attr?.taskId &&
-                                        message.attr?.options?.length && (
+                                    // message.model == "midjourney" &&
+                                    message.attr?.finished &&
+                                    message.attr?.taskId &&
+                                    message.attr?.options?.length && (
+                                        <div
+                                            className={[
+                                                styles["chat-message-actions"],
+                                                styles["column-flex"],
+                                            ].join(" ")}
+                                        >
                                             <div
-                                                className={[
-                                                    styles["chat-message-actions"],
-                                                    styles["column-flex"],
-                                                ].join(" ")}
+                                                style={{marginTop: "6px"}}
+                                                className={styles["chat-input-actions"]}
                                             >
-                                                <div
-                                                    style={{marginTop: "6px"}}
-                                                    className={styles["chat-input-actions"]}
-                                                >
-                                                    {message.attr?.options.map((item: any) => (
-                                                        <ChatAction
-                                                            style={{marginBottom: "6px"}}
-                                                            key={message.attr.taskId+item.custom}
-                                                            text={item.label}
-                                                            onClick={() =>
-                                                                doSubmit(
-                                                                    `/mj CUSTOM::${message.attr.taskId}::${item.custom}`,
-                                                                    {
-                                                                        botMsg: message.attr,
-                                                                    }
-                                                                )
-                                                            }
-                                                        />
-                                                    ))}
-                                                </div>
+                                                {message.attr?.options.map((item: any) => (
+                                                    <ChatAction
+                                                        style={{marginBottom: "6px"}}
+                                                        key={message.attr.taskId+item.custom}
+                                                        text={item.label}
+                                                        onClick={() =>
+                                                            doSubmit(
+                                                                `/mj CUSTOM::${message.attr.taskId}::${item.custom}`,
+                                                                {
+                                                                    botMsg: message.attr,
+                                                                }
+                                                            )
+                                                        }
+                                                    />
+                                                ))}
                                             </div>
-                                        )}
+                                        </div>
+                                    )}
                                     <div className={styles["chat-message-action-date"]}>
                                         {isContext
                                             ? Locale.Chat.IsContext

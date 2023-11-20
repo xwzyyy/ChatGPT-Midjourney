@@ -3,6 +3,7 @@ import { useDropzone, FileWithPath } from 'react-dropzone'; // 注意：这里�
 import styled from 'styled-components';
 import styles from "./ui-lib.module.scss";
 import DownIcon from "../icons/down.svg";
+import LoadingIcon from "../icons/three-dots.svg";
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ interface UploadImageComponentProps {
     onUpload: (file: File) => void;
 }
 
-const UploadImageComponent: React.FC<UploadImageComponentProps> = ({ onUpload }) => {
+const UploadImageComponent: React.FC<UploadImageComponentProps> = ({ onUpload, uploadLoading }) => {
     const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
         // Handle the uploaded files
         if (acceptedFiles.length > 0) {
@@ -40,6 +41,7 @@ const UploadImageComponent: React.FC<UploadImageComponentProps> = ({ onUpload })
     const text = isDragActive ? '拖动图片在这里松开' : '点击或拖动图片到这里';
     return (
         <div className={ styles["select-with-icon"]}>
+            { uploadLoading && <LoadingIcon style={{ marginRight: "10px" }}/> }
             <select className={
                 styles["select-with-icon-select"]
             } {...getRootProps()}  style={{ paddingRight: '10px'}}>

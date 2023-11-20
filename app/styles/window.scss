@@ -2,7 +2,8 @@
   padding: 14px 20px;
   border-bottom: rgba(0, 0, 0, 0.1) 1px solid;
   position: relative;
-  backdrop-filter: blur(25px);
+  //backdrop-filter: blur(25px);
+  background: rgba(128, 128, 128, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;

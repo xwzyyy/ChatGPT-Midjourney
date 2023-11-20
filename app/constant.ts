@@ -81,11 +81,11 @@ export const DEFAULT_MODELS = [
     available: true,
   },
   {
-    name: "gpt-4-32k-0314",
+    name: "gpt-4-1106-preview",
     available: true,
   },
   {
-    name: "gpt-4-32k-0613",
+    name: "gpt-4-vision-preview",
     available: true,
   },
   {
@@ -109,7 +109,7 @@ export const DEFAULT_MODELS = [
     available: true,
   },
   {
-    name: "midjourney",
+    name: "dall-e-3",
     available: true,
   },
 ] as const;

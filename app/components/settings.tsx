@@ -336,7 +336,8 @@ export function Settings() {
     console.log("[Update] local version ", updateStore.version);
     console.log("[Update] remote version ", updateStore.remoteVersion);
   }
-
+  const [shouldShowPromptModal, setShowPromptModal] = useState(false);
+  const [uploadLoading, setUploadLoading] = useState(false);
   const usage = {
     used: updateStore.used,
     subscription: updateStore.subscription,
@@ -352,7 +353,6 @@ export function Settings() {
       setLoadingUsage(false);
     });
   }
-
   const accessStore = useAccessStore();
   const enabledAccessControl = useMemo(
     () => accessStore.enabledAccessControl(),
@@ -383,7 +383,8 @@ export function Settings() {
               await accessStore.updateAccessToken(data?.result?.accessToken)
           }
           if (!accessStore.accessToken) return
-          uploadLoading = true
+
+          setUploadLoading(true)
           // 发送请求到后端API（这里需要替换成你的API端点）
           const response = await fetch('https://chat.aiforhuman.net/Api/common/upload/file', {
               method: 'POST',
@@ -398,6 +399,7 @@ export function Settings() {
           const image = { backgroundImage: `url(${data.result})`}
           // 将获取到的图片URL保存，并设置为聊天背景
           updateConfig((config) => (config.backgroundImage = image));
+          setUploadLoading(false)
 
       } catch (error) {
           console.error('上传图片失败:', error);
@@ -406,7 +408,6 @@ export function Settings() {
   const promptStore = usePromptStore();
   const builtinCount = SearchService.count.builtin;
   const customCount = promptStore.getUserPrompts().length ?? 0;
-  const [shouldShowPromptModal, setShowPromptModal] = useState(false);
 
   const showUsage = accessStore.isAuthorized();
   useEffect(() => {
@@ -577,7 +578,7 @@ export function Settings() {
             title={Locale.Settings.backgroundImage.Title}
             subTitle={Locale.Settings.backgroundImage.SubTitle}
           >
-                <UploadImageComponent onUpload={handleUpload} />
+                <UploadImageComponent onUpload={handleUpload} uploadLoading={uploadLoading} />
           </ListItem>
 
           <ListItem
