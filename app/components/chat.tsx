@@ -235,8 +235,8 @@ export type RenderPompt = Pick<Prompt, "title" | "content">;
 
 export function PromptHints(props: {
     prompts: RenderPompt[];
-    onPromptSelect: (prompt: RenderPompt) => void; })
-{
+    onPromptSelect: (prompt: RenderPompt) => void;
+}) {
     const noPrompts = props.prompts.length === 0;
     const [selectIndex, setSelectIndex] = useState(0);
     const selectedRef = useRef<HTMLDivElement>(null);
@@ -330,8 +330,7 @@ function ChatAction(props: {
     innerNode?: JSX.Element;
     onClick: () => void;
     style?: React.CSSProperties;
-})
-{
+}) {
     const iconRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState({
@@ -418,8 +417,7 @@ export function ChatActions(props: {
     showPromptHints: () => void;
     imageSelected: (img: any) => void;
     hitBottom: boolean;
-})
-{
+}) {
     const config = useAppConfig();
     const navigate = useNavigate();
     const chatStore = useChatStore();
@@ -1281,7 +1279,7 @@ function _Chat() {
                                         />
                                     </div>
                                     {!isUser &&
-                                        message.model == "midjourney" &&
+                                        // message.model == "midjourney" &&
                                         message.attr?.finished &&
                                         message.attr?.taskId &&
                                         message.attr?.options?.length && (
