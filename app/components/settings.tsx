@@ -380,8 +380,10 @@ export function Settings() {
               });
               const data = await response.json()
               console.log('data',data)
-              accessStore.updateAccessToken(data?.result?.accessToken)
+              await accessStore.updateAccessToken(data?.result?.accessToken)
           }
+          if (!accessStore.accessToken) return
+          uploadLoading = true
           // 发送请求到后端API（这里需要替换成你的API端点）
           const response = await fetch('https://chat.aiforhuman.net/Api/common/upload/file', {
               method: 'POST',

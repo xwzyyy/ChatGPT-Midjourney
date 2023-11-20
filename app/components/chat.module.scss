@@ -420,7 +420,9 @@
   padding-top: 10px;
   box-sizing: border-box;
   flex-direction: column;
-  backdrop-filter: blur(25px);
+  background: rgba(128, 128, 128, 0.1);
+  //filter 和 fixed不能共用
+  //backdrop-filter: blur(25px);
   border-top: var(--border-in-light);
   box-shadow: var(--card-shadow);
 
