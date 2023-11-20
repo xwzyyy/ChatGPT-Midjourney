@@ -25,6 +25,7 @@ const UploadText = styled.p`
 
 interface UploadImageComponentProps {
     onUpload: (file: File) => void;
+    uploadLoading: boolean;
 }
 
 const UploadImageComponent: React.FC<UploadImageComponentProps> = ({ onUpload, uploadLoading }) => {
