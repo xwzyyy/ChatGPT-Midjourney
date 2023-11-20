@@ -1,8 +1,8 @@
-import {Midjourney, MJMessage} from "midjourney";
-import {MJConfigParam} from "midjourney/src/interfaces";
-import {nextNonce} from "midjourney/libs/utils";
+import { Midjourney, MJMessage } from "midjourney";
+import { MJConfigParam } from "midjourney/src/interfaces";
+import { nextNonce } from "midjourney/libs/utils";
 
-const {v4: uuidv4} = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 export interface MidjourneyConfig {
     serverId: string
@@ -22,9 +22,9 @@ export class MidjourneyApi {
     constructor() {
         console.log('midjourney api server constructor')
         this.config = {
-            serverId: <string>process.env.MJ_SERVER_ID,
-            channelId: <string>process.env.MJ_CHANNEL_ID,
-            token: <string>process.env.MJ_USER_TOKEN,
+            serverId: <string>process.env.MJ_SERVER_ID || '998196496736469023',
+            channelId: <string>process.env.MJ_CHANNEL_ID || '1174629478320840744',
+            token: <string>process.env.MJ_USER_TOKEN || 'OTk4MTk1NTU4NDc0ODQyMTk1.GXDq-l.3Yx6TBPk8E2gmi_IXpLEJXgz6xk2Enm0v-Rz5g',
             discordProxy: <string>process.env.MJ_DISCORD_PROXY || 'https://discord.com',
             discordWssProxy: <string>process.env.MJ_DISCORD_WSS_PROXY || 'wss://gateway.discord.gg',
             discordCdnProxy: <string>process.env.MJ_DISCORD_CDN_PROXY || 'https://cdn.discordapp.com',
@@ -202,7 +202,7 @@ export class MidjourneyApi {
                 msgHash: res.hash
             })
         }).catch((e) => {
-            this.tasks[taskId] = Object.assign(this.tasks[taskId], {error: e, status: 'FAIL', code: 1})
+            this.tasks[taskId] = Object.assign(this.tasks[taskId], { error: e, status: 'FAIL', code: 1 })
         })
     }
 
